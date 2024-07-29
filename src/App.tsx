@@ -1,6 +1,10 @@
+import Layout from "./components/Layout"
+
 function App() {
   return (
-    <h1>app</h1>
+    <main className="mx-auto mt-5 max-w-lg border">
+      <Layout />
+    </main>
   )
 }
 
