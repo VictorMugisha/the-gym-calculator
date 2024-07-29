@@ -1,31 +1,31 @@
 import Button from "./Button";
 
 export default function Keyboard() {
-    
+
 
     return (
         <div
             className="w-full grid grid-cols-4 gap-[1px] bg-black"
         >
-            <Button>AC</Button>
-            <Button>+/-</Button>
-            <Button>%</Button>
-            <Button>÷</Button>
-            <Button>7</Button>
-            <Button>8</Button>
-            <Button>9</Button>
-            <Button>x</Button>
-            <Button>6</Button>
-            <Button>5</Button>
-            <Button>4</Button>
-            <Button>-</Button>
-            <Button>3</Button>
-            <Button>2</Button>
-            <Button>1</Button>
-            <Button>+</Button>
-            <Button>0</Button>
-            <Button>.</Button>
-            <Button>=</Button>
+            <Button className="" value={"AC"} />
+            <Button className="" value={"+/-"} />
+            <Button className="" value={"%"} />
+            <Button className="bg-orange-500 text-white" value={"÷"} />
+            <Button className="" value={7} />
+            <Button className="" value={8} />
+            <Button className="" value={9} />
+            <Button className="bg-orange-500 text-white" value={"x"} />
+            <Button className="" value={6} />
+            <Button className="" value={5} />
+            <Button className="" value={4} />
+            <Button className="bg-orange-500 text-white" value={"-"} />
+            <Button className="" value={3} />
+            <Button className="" value={2} />
+            <Button className="" value={1} />
+            <Button className="bg-orange-500 text-white" value={"+"} />
+            <Button className="col-span-2" value={0} />
+            <Button className="" value={"."} />
+            <Button className="bg-orange-500 text-white" value={"="} />
         </div>
     );
 }
