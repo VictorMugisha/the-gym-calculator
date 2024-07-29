@@ -1,6 +1,11 @@
+import Keyboard from "./Keyboard";
+import Screen from "./Screen";
 
 export default function Layout() {
   return (
-    <div>Layout</div>
+    <div>
+        <Screen />
+        <Keyboard />
+    </div>
   )
 }
