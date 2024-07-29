@@ -1,82 +1,44 @@
-import { useContext, useState } from "react"
-import { ScreenContextProvider } from "../contexts/ScreenContext"
+// src/components/Button.tsx
+import React from 'react';
+import { useScreen } from '../contexts/ScreenContext';
 
 interface ButtonProps {
-    className?: string
-    value: string | number
-    operation?: "reset" | "add" | "minus" | "multiply" | "divide" | "modulus" | "dot" | "equal" | "negate"
+  label: string;
+  className?: string;
 }
 
-export default function Button({ className, value, operation }: ButtonProps) {
-    const [operand, setOperand] = useState<string>("")
-    const context = useContext(ScreenContextProvider)
+const Button: React.FC<ButtonProps> = ({ label, className }) => {
+  const { display, setDisplay } = useScreen();
 
-    function handleClick() {
-        if (typeof value === "number") {
-            console.log("it's a number");
-            if (context?.screenValue === 0) {
-                context.setScreenValue(value)
-                return
-            } else {
-                if (context?.screenValue.toString().length === 9) {
-                    return
-                }
-                context?.setScreenValue(prevValue => {
-                    return parseInt(prevValue.toString() + value)
-                })
-            }
-        } else {
-            if (context?.screenValue === 0) {
-                return
-            }
-            switch (operation) {
-                case "reset":
-                    context?.setScreenValue(0)
-                    break
-                case "add":
-                    setOperand(context?.screenValue.toString() + "+")
-                    console.log(operand);
-                    break
-                case "minus":
-                    setOperand(context?.screenValue.toString() + "-")
-                    console.log(operand);
-                    break
-                case "divide":
-                    setOperand(context?.screenValue.toString() + "/")
-                    console.log(operand);
-                    break
-                case "multiply":
-                    setOperand(context?.screenValue.toString() + "*")
-                    break
-                case "modulus":
-                    setOperand(context?.screenValue.toString() + "%")
-                    break
-                case "negate":
-                    context?.setScreenValue(prevValue => {
-                        return prevValue * -1
-                    })
-                    break
-                case "dot":
-                    if (context?.screenValue.toString().includes('.')) {
-                        return
-                    }
-                    context?.setScreenValue(prevValue => {
-                        return parseInt(prevValue.toString() + value + 0)
-                    })
-                    break
-                // case "equal":
-                //     setOperand(context?.screenValue as number)
-                //     break
-            }
+  const handleClick = () => {
+    switch (label) {
+      case 'AC':
+        setDisplay('0');
+        break;
+      case '+/-':
+        setDisplay((prev) => (prev.startsWith('-') ? prev.slice(1) : '-' + prev));
+        break;
+      case '%':
+        setDisplay((prev) => String(Number(prev) / 100));
+        break;
+      case '=':
+        try {
+          setDisplay(String(eval(display)));
+        } catch {
+          setDisplay('Error');
         }
+        break;
+      default:
+        setDisplay((prev) => (prev === '0' ? label : prev + label));
+        break;
     }
+  };
 
-    return (
-        <button
-            className={`bg-gray-300 text-[2rem] border-none outline-none h-28 flex items-center justify-center ${className}`}
-            onClick={handleClick}
-        >
-            {value}
-        </button>
-    );
-}
+  return (
+    <button onClick={handleClick} className={`p-4 ${className}`}>
+      {label}
+    </button>
+  );
+};
+
+export default Button;
